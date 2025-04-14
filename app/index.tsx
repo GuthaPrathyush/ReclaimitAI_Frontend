@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import TopNavBar from '@/components/ui/TopNavBar';
-import Logo from "../../assets/logo.png";
+import Logo from "../assets/logo.png";
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'expo-router';
@@ -18,10 +16,8 @@ const index = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <StatusBar hidden />
-      <TopNavBar></TopNavBar>
       <View style={styles.container}>
+        <StatusBar barStyle={'light-content'} />
         <View style={[styles.lightSource, {
           top: -50,
           left: -50,
@@ -57,7 +53,6 @@ const index = () => {
           </View>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
   );
 };
 
@@ -72,11 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     position: "relative"
-  },
-  safeAreaContainer: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#050c16",
   },
   logo: {
     height: 100,

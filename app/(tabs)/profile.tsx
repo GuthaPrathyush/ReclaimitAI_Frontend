@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'expo-router';
 
-const index = () => {
+const profile = () => {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const router = useRouter();
   
@@ -61,7 +61,7 @@ const index = () => {
   );
 };
 
-export default index;
+export default profile;
 
 const styles = StyleSheet.create({
   container: {
