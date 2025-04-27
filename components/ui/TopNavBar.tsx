@@ -2,12 +2,16 @@ import { StyleSheet, Text, View, Image, TextInput, Animated, TouchableOpacity } 
 import React, { useState, useEffect, useRef } from 'react'
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import Logo from '../../assets/logo.png';
+import { navigate } from 'expo-router/build/global-state/routing';
+import { useRouter } from 'expo-router';
 
 const TopNavBar = () => {
   const [searchText, setSearchText] = useState('');
   const [imgWidth, setImgWidth] = useState(null);
   const [imgHeight, setImgHeight] = useState(50);
   const [searchActive, setSearchActive] = useState(false);
+
+  const router = useRouter();
   
   // Animation values
   const logoAnimation = useRef(new Animated.Value(1)).current;
@@ -160,7 +164,9 @@ const TopNavBar = () => {
           </TouchableOpacity>
           
           <Animated.View style={{ opacity: notificationOpacity }}>
-            <IconSymbol size={28} name="notifications" color="#FFF" />
+            <TouchableOpacity onPress={() => router.push('/notifications')}>
+              <IconSymbol size={28} name="notifications" color="#FFF" />
+            </TouchableOpacity>
           </Animated.View>
         </View>
       </View>

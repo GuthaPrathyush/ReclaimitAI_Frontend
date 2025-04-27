@@ -71,7 +71,7 @@ const login = () => {
     // handling the submission
     //after validation
     //if everythin is valid
-    router.replace('/(tabs)');
+    // router.replace('/(tabs)');
 
     const response = null;
     try {

@@ -2,19 +2,47 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, StatusBar } from 'reac
 import Logo from "../assets/logo.png";
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { useRouter } from 'expo-router';
+import { SplashScreen, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { InteractionManager } from 'react-native';
+import axios from 'axios';
+
 
 const index = () => {
   const [logoLoaded, setLogoLoaded] = useState(false);
   const router = useRouter();
   
-  // Instead of resolveAssetSource, use Image.getSize
-  // This is a safer alternative that's officially supported
   useEffect(() => {
-    // Nothing to do on initial render - we'll handle image dimensions
-    // directly in the onLoad callback
+    InteractionManager.runAfterInteractions(async () => {
+      let navigated = false;
+  
+      try {
+        const token = await AsyncStorage.getItem('auth_token');
+        if (token) {
+          const res = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URI}/checkUser`, {}, {
+            headers: {
+              Accept: "application/json",
+              'Content-Type': "application/json",
+              'auth_token': token
+            }
+          });
+  
+          if (res.data.valid) {
+            navigated = true;
+            router.push('/(tabs)');
+          }
+        }
+      } catch (err) {
+        console.warn("Error checking user validity", err);
+      } finally {
+        // Wait a bit to ensure navigation begins smoothly
+        setTimeout(() => {
+          SplashScreen.hideAsync();
+        }, navigated ? 500 : 0); // Delay slightly if navigating
+      }
+    });
   }, []);
-
+  
   return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />

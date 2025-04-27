@@ -99,6 +99,7 @@ const AddItem = () => {
     formData.append('name', itemName);
     formData.append('state', itemState === 'lost' ? 'true' : 'false');
     formData.append('description', itemDescription);
+    formData.append('timestamp', `${Date.now()}`);
     
     // Improved image handling - using the asset information directly
     formData.append('image', {
@@ -108,7 +109,6 @@ const AddItem = () => {
     });
 
     try {
-      await AsyncStorage.setItem("auth_token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2ViN2NhMGQ5MDBhNWRhMjk5ODZmYzAifQ.W8uoTYe6eqg7fTK4by6kFyugHhepbvNKv17QXkVbPwE");
       const token = await AsyncStorage.getItem("auth_token");
       const response = await axios.post(`${backendURI}/upload`, formData, {
         headers: {
@@ -136,6 +136,12 @@ const AddItem = () => {
         setErrorMessage("An error occurred while uploading. Please try again later.");
       }
       setTimeout(() => setErrorMessage(""), 5000);
+    }
+    finally {
+      setImage(null)
+      setItemName("");
+      setItemDescription("");
+      setItemState("lost");
     }
   };
 

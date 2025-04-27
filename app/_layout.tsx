@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { ItemsProvider } from '@/contexts/ItemsContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -19,7 +20,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      // SplashScreen.hideAsync();
     }
   }, [loaded]);
 
@@ -37,13 +38,19 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={CustomDefaultTheme}>
+      <ItemsProvider>
       <Stack>
         <Stack.Screen name="index" options={{headerShown: false}} />
         <Stack.Screen name="login" options={{headerShown: false}} />
         <Stack.Screen name="register" options={{headerShown: false}} />
+        <Stack.Screen name="notifications" options={{ headerShown: false }} />
+        <Stack.Screen name="notificationDetails" options={{ headerShown: false }} />
+        {/* testing page (remove while deployement) */} 
+        <Stack.Screen name="testing" options={{ headerShown: false }} /> 
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      </ItemsProvider>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
