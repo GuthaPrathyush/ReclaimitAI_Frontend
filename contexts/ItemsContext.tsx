@@ -1,6 +1,9 @@
 // ItemsContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
 import axios from 'axios';
 
 // Create the context
@@ -98,6 +101,45 @@ export const ItemsProvider = ({ children }) => {
     }
   };
 
+  
+async function registerForPushNotificationsAsync() {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      const projectId =
+        Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
+      const token = (await Notifications.getExpoPushTokenAsync({ projectId })).data;
+      // Save token to backend
+      try {
+        const authToken = await AsyncStorage.getItem('auth_token');
+        if (authToken && token) {
+          await axios.post(
+            `${backendURI}/update-fcm-token`,
+            { token },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'auth_token': authToken,
+              },
+            }
+          );
+        }
+      } catch (err) {
+        console.log('Error sending push token to backend:', err);
+      }
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+    // No return value
+  }
   // Value to be provided to consumers
   const value = {
     items,
@@ -107,7 +149,8 @@ export const ItemsProvider = ({ children }) => {
     notifications,
     notificationsLoading,
     notificationsError,
-    fetchNotifications
+    fetchNotifications,
+    registerForPushNotificationsAsync,
   };
 
   return (

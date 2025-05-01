@@ -17,7 +17,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#050c16"
       },
-      "package": "com.prathyush_gutha.ReclaimitAI"
+      "package": "com.prathyush_gutha.ReclaimitAI",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",

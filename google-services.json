@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158426607742",
+    "project_id": "reclaimitai-dfcc3",
+    "storage_bucket": "reclaimitai-dfcc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158426607742:android:67f16ba0d177245f04a82f",
+        "android_client_info": {
+          "package_name": "com.prathyush_gutha.ReclaimitAI"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmfKeDYXu89BXETrFdwf770rJC0_k3OEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

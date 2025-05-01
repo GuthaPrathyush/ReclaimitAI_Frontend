@@ -12,11 +12,13 @@ const index = () => {
   const [filterMode, setFilterMode] = useState('all'); // 'all', 'lost', or 'found'
   
   // Use the items context instead of dummy data
-  const { items, loading, error, fetchItems } = useItems();
+  const { items, loading, error, fetchItems, registerForPushNotificationsAsync } = useItems();
 
   // Refresh items when the component mounts
   useEffect(() => {
     fetchItems();
+    registerForPushNotificationsAsync();
+
   }, []);
 
   // Filter items based on the current filter mode
