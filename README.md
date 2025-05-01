@@ -5,9 +5,9 @@
 
 ## Demo
 
-![App Screenshot](./demo/Home.jpg)
+<img src="./demo/Home.jpg" alt="Home Screen" width="300" />
 
-![App Screenshot](./demo/Form.jpg)
+<img src="./demo/Form.jpg" alt="Form Screen" width="300" />
 
 ## 📱 Built With
 
