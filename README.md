@@ -5,7 +5,10 @@
 
 ## Demo
 
+## Home screen
 <img src="./demo/Home.jpg" alt="Home Screen" width="300" />
+
+## Form screen
 
 <img src="./demo/Form.jpg" alt="Form Screen" width="300" />
 
